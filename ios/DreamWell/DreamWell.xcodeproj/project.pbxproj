@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07B5EF7ACF610FEFE6B86129 /* Pods_DreamWell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E6A38B8F4328A15DA0E49 /* Pods_DreamWell.framework */; };
 		0F7F06331E8F8B6900CFE5D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F06321E8F8B6900CFE5D2 /* AppDelegate.swift */; };
 		0F7F06381E8F8B6A00CFE5D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F06361E8F8B6A00CFE5D2 /* Main.storyboard */; };
 		0F7F063A1E8F8B6A00CFE5D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F06391E8F8B6A00CFE5D2 /* Assets.xcassets */; };
@@ -16,6 +17,10 @@
 		0F7F06491E8FA3BD00CFE5D2 /* TrendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F06481E8FA3BD00CFE5D2 /* TrendsViewController.swift */; };
 		0F7F064C1E8FC4F100CFE5D2 /* TrendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F064A1E8FC4F100CFE5D2 /* TrendCell.swift */; };
 		0F7F064D1E8FC4F100CFE5D2 /* TrendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F064B1E8FC4F100CFE5D2 /* TrendCell.xib */; };
+		0F7F064F1E8FCF0600CFE5D2 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F064E1E8FCF0600CFE5D2 /* UIColorExtensions.swift */; };
+		0F7F06521E8FDB2C00CFE5D2 /* KeywordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F06501E8FDB2C00CFE5D2 /* KeywordCell.swift */; };
+		0F7F06531E8FDB2C00CFE5D2 /* KeywordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F06511E8FDB2C00CFE5D2 /* KeywordCell.xib */; };
+		0F7F06551E8FE5FD00CFE5D2 /* GlobalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F06541E8FE5FD00CFE5D2 /* GlobalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +35,13 @@
 		0F7F06481E8FA3BD00CFE5D2 /* TrendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsViewController.swift; sourceTree = "<group>"; };
 		0F7F064A1E8FC4F100CFE5D2 /* TrendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendCell.swift; sourceTree = "<group>"; };
 		0F7F064B1E8FC4F100CFE5D2 /* TrendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrendCell.xib; sourceTree = "<group>"; };
+		0F7F064E1E8FCF0600CFE5D2 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		0F7F06501E8FDB2C00CFE5D2 /* KeywordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeywordCell.swift; sourceTree = "<group>"; };
+		0F7F06511E8FDB2C00CFE5D2 /* KeywordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeywordCell.xib; sourceTree = "<group>"; };
+		0F7F06541E8FE5FD00CFE5D2 /* GlobalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalViewController.swift; sourceTree = "<group>"; };
+		2E7949C139A5022B59F9922D /* Pods-DreamWell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DreamWell.release.xcconfig"; path = "Pods/Target Support Files/Pods-DreamWell/Pods-DreamWell.release.xcconfig"; sourceTree = "<group>"; };
+		7D2F9115A05C7E08EBC3FA87 /* Pods-DreamWell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DreamWell.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DreamWell/Pods-DreamWell.debug.xcconfig"; sourceTree = "<group>"; };
+		819E6A38B8F4328A15DA0E49 /* Pods_DreamWell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DreamWell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07B5EF7ACF610FEFE6B86129 /* Pods_DreamWell.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +61,8 @@
 			children = (
 				0F7F06311E8F8B6900CFE5D2 /* DreamWell */,
 				0F7F06301E8F8B6900CFE5D2 /* Products */,
+				8CC891A28202A860A53EDE94 /* Pods */,
+				3A1DD76DFED9E85CF043EB79 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,15 +80,36 @@
 				0F7F06321E8F8B6900CFE5D2 /* AppDelegate.swift */,
 				0F7F06361E8F8B6A00CFE5D2 /* Main.storyboard */,
 				0F7F06391E8F8B6A00CFE5D2 /* Assets.xcassets */,
-				0F7F064A1E8FC4F100CFE5D2 /* TrendCell.swift */,
-				0F7F064B1E8FC4F100CFE5D2 /* TrendCell.xib */,
 				0F7F063B1E8F8B6A00CFE5D2 /* LaunchScreen.storyboard */,
 				0F7F063E1E8F8B6A00CFE5D2 /* Info.plist */,
 				0F7F06441E8FA3A000CFE5D2 /* RecordingViewController.swift */,
 				0F7F06461E8FA3B000CFE5D2 /* StatisticsViewController.swift */,
 				0F7F06481E8FA3BD00CFE5D2 /* TrendsViewController.swift */,
+				0F7F064A1E8FC4F100CFE5D2 /* TrendCell.swift */,
+				0F7F064B1E8FC4F100CFE5D2 /* TrendCell.xib */,
+				0F7F06501E8FDB2C00CFE5D2 /* KeywordCell.swift */,
+				0F7F06511E8FDB2C00CFE5D2 /* KeywordCell.xib */,
+				0F7F06541E8FE5FD00CFE5D2 /* GlobalViewController.swift */,
+				0F7F064E1E8FCF0600CFE5D2 /* UIColorExtensions.swift */,
 			);
 			path = DreamWell;
+			sourceTree = "<group>";
+		};
+		3A1DD76DFED9E85CF043EB79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				819E6A38B8F4328A15DA0E49 /* Pods_DreamWell.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8CC891A28202A860A53EDE94 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7D2F9115A05C7E08EBC3FA87 /* Pods-DreamWell.debug.xcconfig */,
+				2E7949C139A5022B59F9922D /* Pods-DreamWell.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,9 +119,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F7F06411E8F8B6A00CFE5D2 /* Build configuration list for PBXNativeTarget "DreamWell" */;
 			buildPhases = (
+				1E48772C9F87634C55C7B419 /* [CP] Check Pods Manifest.lock */,
 				0F7F062B1E8F8B6900CFE5D2 /* Sources */,
 				0F7F062C1E8F8B6900CFE5D2 /* Frameworks */,
 				0F7F062D1E8F8B6900CFE5D2 /* Resources */,
+				6D20FA00A39B2B648EF2285D /* [CP] Embed Pods Frameworks */,
+				8B86DEC13E7D21DC2FBD9EC3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -139,11 +178,60 @@
 				0F7F063D1E8F8B6A00CFE5D2 /* LaunchScreen.storyboard in Resources */,
 				0F7F063A1E8F8B6A00CFE5D2 /* Assets.xcassets in Resources */,
 				0F7F06381E8F8B6A00CFE5D2 /* Main.storyboard in Resources */,
+				0F7F06531E8FDB2C00CFE5D2 /* KeywordCell.xib in Resources */,
 				0F7F064D1E8FC4F100CFE5D2 /* TrendCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1E48772C9F87634C55C7B419 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6D20FA00A39B2B648EF2285D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DreamWell/Pods-DreamWell-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B86DEC13E7D21DC2FBD9EC3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DreamWell/Pods-DreamWell-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0F7F062B1E8F8B6900CFE5D2 /* Sources */ = {
@@ -151,8 +239,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F7F064C1E8FC4F100CFE5D2 /* TrendCell.swift in Sources */,
+				0F7F06521E8FDB2C00CFE5D2 /* KeywordCell.swift in Sources */,
 				0F7F06451E8FA3A000CFE5D2 /* RecordingViewController.swift in Sources */,
 				0F7F06331E8F8B6900CFE5D2 /* AppDelegate.swift in Sources */,
+				0F7F064F1E8FCF0600CFE5D2 /* UIColorExtensions.swift in Sources */,
+				0F7F06551E8FE5FD00CFE5D2 /* GlobalViewController.swift in Sources */,
 				0F7F06491E8FA3BD00CFE5D2 /* TrendsViewController.swift in Sources */,
 				0F7F06471E8FA3B000CFE5D2 /* StatisticsViewController.swift in Sources */,
 			);
@@ -275,6 +366,7 @@
 		};
 		0F7F06421E8F8B6A00CFE5D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D2F9115A05C7E08EBC3FA87 /* Pods-DreamWell.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 78EJNNQKLH;
@@ -289,6 +381,7 @@
 		};
 		0F7F06431E8F8B6A00CFE5D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E7949C139A5022B59F9922D /* Pods-DreamWell.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 78EJNNQKLH;
@@ -320,6 +413,7 @@
 				0F7F06431E8F8B6A00CFE5D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

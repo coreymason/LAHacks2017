@@ -45,7 +45,7 @@ class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 	}
 	
 	func moveTextViewUp() {
-		textViewHeightConstraint.constant = CGFloat(60 * recordedLines)
+		textViewHeightConstraint.constant = CGFloat(40 * recordedLines) + 40.0
 		let stringLength:Int = self.textView.text.characters.count
 		self.textView.scrollRangeToVisible(NSMakeRange(stringLength-1, 0))
 		UIView.animate(withDuration: 0.3) {

@@ -1,19 +1,49 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TrendCell" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrendCell" rowHeight="298" id="KGk-i7-Jjw" customClass="TrendCell" customModule="DreamWell" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="317" height="298"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="317" height="298"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzN-ui-Iup" customClass="LineChartView" customModule="Charts">
+                        <rect key="frame" x="8" y="45" width="301" height="208"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dream quality affected by air pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQW-85-ag0">
+                        <rect key="frame" x="10" y="15" width="274" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <color key="textColor" red="0.22932323694229129" green="0.22932323694229129" blue="0.22932323694229129" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="YzN-ui-Iup" secondAttribute="trailing" id="71g-WX-9bs"/>
+                    <constraint firstItem="YzN-ui-Iup" firstAttribute="top" secondItem="xQW-85-ag0" secondAttribute="bottom" constant="12" id="aAR-An-Dfl"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="YzN-ui-Iup" secondAttribute="leading" id="eYr-nc-OVg"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="YzN-ui-Iup" secondAttribute="bottom" constant="37" id="iox-YM-9yi"/>
+                    <constraint firstItem="xQW-85-ag0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="w4l-NC-Fsl"/>
+                    <constraint firstItem="xQW-85-ag0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="y1L-xa-k0N"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="chartView" destination="YzN-ui-Iup" id="DjK-S7-8Wr"/>
+                <outlet property="titleLabel" destination="xQW-85-ag0" id="QDe-rD-7vR"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="181"/>
         </tableViewCell>
     </objects>
 </document>
