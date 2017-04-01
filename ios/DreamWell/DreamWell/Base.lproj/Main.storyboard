@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Trend-->
+        <!--Trends-->
         <scene sceneID="HcC-Mc-TSP">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="t0G-Sq-2rb" customClass="TrendsViewController" customModule="DreamWell" customModuleProvider="target" sceneMemberID="viewController">
@@ -50,7 +50,7 @@
                             <constraint firstItem="vzW-pB-qfH" firstAttribute="top" secondItem="he7-qN-GYm" secondAttribute="bottom" id="tmc-mw-1Kg"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Trend" id="mar-87-NQ9"/>
+                    <tabBarItem key="tabBarItem" title="Trends" image="trend_grey" selectedImage="trend_green" id="mar-87-NQ9"/>
                     <connections>
                         <outlet property="segmentedControl" destination="nQt-7p-IL4" id="CEq-eS-qKq"/>
                         <outlet property="tableView" destination="he7-qN-GYm" id="OOR-fV-lq4"/>
@@ -83,10 +83,10 @@
                                 <rect key="frame" x="16" y="295" width="343" height="135"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="34" id="g3v-Lg-pU6">
+                                    <tableViewCell clipsSubviews="YES" tag="4" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="34" id="g3v-Lg-pU6">
                                         <rect key="frame" x="0.0" y="56" width="343" height="34"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g3v-Lg-pU6" id="d7m-jb-Uag">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="5" contentMode="center" tableViewCell="g3v-Lg-pU6" id="d7m-jb-Uag">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -97,8 +97,8 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="91%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSF-YK-VhO">
-                                                    <rect key="frame" x="128" y="2" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="91%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSF-YK-VhO">
+                                                    <rect key="frame" x="128" y="2" width="130" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -162,7 +162,7 @@
                             <constraint firstItem="YoA-YP-xYI" firstAttribute="leading" secondItem="Xx5-6A-RE4" secondAttribute="trailing" constant="8" id="rXc-zZ-Gfm"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Statistics" id="CVB-PL-TU1"/>
+                    <tabBarItem key="tabBarItem" title="Statistics" image="stats_grey" selectedImage="stats_green" id="CVB-PL-TU1"/>
                     <connections>
                         <outlet property="chartView" destination="CkS-OK-8n3" id="Qaq-cc-CtT"/>
                         <outlet property="tableView" destination="lKu-LT-aV1" id="CFo-Zh-WYc"/>
@@ -280,26 +280,73 @@
                     <view key="view" contentMode="scaleToFill" id="qOr-Pj-Dln">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E05-eJ-oso" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="107" width="375" height="375"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Rest of the World" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzc-qL-7Hw">
+                                <rect key="frame" x="84" y="44" width="207" height="29"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="21"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Global emotions are updated daily by analyzing the world's tweets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1K-6N-ZfM">
+                                <rect key="frame" x="16" y="589" width="347" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overall Sentiment: 64% positive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JC-7i-Wrm">
+                                <rect key="frame" x="16" y="490" width="243" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How much you match: 64%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccE-9x-B4A">
+                                <rect key="frame" x="16" y="519" width="209" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bzc-qL-7Hw" firstAttribute="top" secondItem="ipu-qd-uQr" secondAttribute="bottom" constant="24" id="4uf-AS-KEq"/>
+                            <constraint firstItem="bzc-qL-7Hw" firstAttribute="centerX" secondItem="qOr-Pj-Dln" secondAttribute="centerX" id="7ky-VW-8gJ"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Global" badgeValue="1" id="GyN-Uw-KNN">
+                    <tabBarItem key="tabBarItem" title="Global" image="global_grey" selectedImage="global_green" id="GyN-Uw-KNN">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
                                 <color key="value" red="0.44313725490196076" green="0.95686274509803915" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="chartView" destination="E05-eJ-oso" id="B2g-RO-QJb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zHO-bD-Yg1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-335" y="506"/>
+            <point key="canvasLocation" x="-335.19999999999999" y="505.99700149925042"/>
         </scene>
     </scenes>
     <resources>
         <image name="Alpha Gradient" width="50" height="1000"/>
+        <image name="global_green" width="16" height="16"/>
+        <image name="global_grey" width="16" height="16"/>
         <image name="left-arrow" width="15" height="33"/>
         <image name="mic_green" width="180" height="180"/>
         <image name="mic_grey" width="180" height="180"/>
         <image name="right-arrow" width="15" height="33"/>
+        <image name="stats_green" width="16" height="16"/>
+        <image name="stats_grey" width="16" height="16"/>
+        <image name="trend_green" width="16" height="16"/>
+        <image name="trend_grey" width="16" height="16"/>
     </resources>
 </document>
