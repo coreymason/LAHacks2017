@@ -1,26 +1,181 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F4b-ll-bK4">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Trend-->
+        <scene sceneID="HcC-Mc-TSP">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="t0G-Sq-2rb" customClass="TrendsViewController" customModule="DreamWell" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="hsf-YY-1IQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="vzW-pB-qfH"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="OTB-V8-uLQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nQt-7p-IL4">
+                                <rect key="frame" x="16" y="20" width="343" height="29"/>
+                                <segments>
+                                    <segment title="Week"/>
+                                    <segment title="Month"/>
+                                    <segment title="All"/>
+                                </segments>
+                                <color key="tintColor" red="0.44314822554588318" green="0.95812302827835083" blue="0.73737019300460815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="t0G-Sq-2rb" eventType="valueChanged" id="sc7-QO-aba"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="he7-qN-GYm">
+                                <rect key="frame" x="16" y="67" width="343" height="551"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="he7-qN-GYm" firstAttribute="top" secondItem="nQt-7p-IL4" secondAttribute="bottom" constant="19" id="AGh-bn-1rz"/>
+                            <constraint firstItem="nQt-7p-IL4" firstAttribute="top" secondItem="hsf-YY-1IQ" secondAttribute="bottom" id="NrO-At-udo"/>
+                            <constraint firstItem="he7-qN-GYm" firstAttribute="trailing" secondItem="OTB-V8-uLQ" secondAttribute="trailingMargin" id="PSa-b1-IdI"/>
+                            <constraint firstItem="nQt-7p-IL4" firstAttribute="leading" secondItem="OTB-V8-uLQ" secondAttribute="leadingMargin" id="dhV-G9-gFK"/>
+                            <constraint firstItem="he7-qN-GYm" firstAttribute="leading" secondItem="OTB-V8-uLQ" secondAttribute="leadingMargin" id="fBa-3a-NJD"/>
+                            <constraint firstItem="nQt-7p-IL4" firstAttribute="centerX" secondItem="OTB-V8-uLQ" secondAttribute="centerX" id="j8Y-HP-Blw"/>
+                            <constraint firstItem="vzW-pB-qfH" firstAttribute="top" secondItem="he7-qN-GYm" secondAttribute="bottom" id="tmc-mw-1Kg"/>
+                        </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Trend" id="mar-87-NQ9"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="nQt-7p-IL4" id="CEq-eS-qKq"/>
+                        <outlet property="tableView" destination="he7-qN-GYm" id="OOR-fV-lq4"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sMe-g2-axG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="379.16041979010498"/>
+        </scene>
+        <!--Statistics-->
+        <scene sceneID="czU-bq-1Gw">
+            <objects>
+                <viewController id="ay0-2D-ZXG" customClass="StatisticsViewController" customModule="DreamWell" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="p3p-9v-Dg8"/>
+                        <viewControllerLayoutGuide type="bottom" id="xXd-F6-4cy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CLo-2y-3Wf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Statistics" id="CVB-PL-TU1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="haQ-j7-9nC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="993" y="-283"/>
+        </scene>
+        <!--Start Recording-->
+        <scene sceneID="gs2-C8-KRA">
+            <objects>
+                <viewController id="Cfr-fC-x7C" customClass="RecordingViewController" customModule="DreamWell" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TVw-17-6ww"/>
+                        <viewControllerLayoutGuide type="bottom" id="9yP-xt-bd8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y4f-Sz-6iq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Press start recording and then tell us about your dream!" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kL7-0b-IyI">
+                                <rect key="frame" x="40" y="382" width="294" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="750" constant="120" id="rQT-mi-vVE"/>
+                                </constraints>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dream Well" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3Y-IZ-9Hp">
+                                <rect key="frame" x="131" y="35" width="112" height="29"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="21"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Alpha Gradient" translatesAutoresizingMaskIntoConstraints="NO" id="7pZ-VE-niL">
+                                <rect key="frame" x="0.0" y="347" width="366" height="263"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="263" id="hBN-zv-owp"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25x-Zr-zVS">
+                                <rect key="frame" x="66" y="544" width="243" height="47"/>
+                                <color key="backgroundColor" red="0.44314822554588318" green="0.95812302827835083" blue="0.73737019300460815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="O4N-HR-wJX"/>
+                                    <constraint firstAttribute="width" constant="243" id="jel-Ni-DZU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                <state key="normal" title="Start Recording">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startRecording:" destination="Cfr-fC-x7C" eventType="touchUpInside" id="ABm-um-7mJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9yP-xt-bd8" firstAttribute="top" secondItem="7pZ-VE-niL" secondAttribute="bottom" constant="8" id="B40-p2-y17"/>
+                            <constraint firstItem="9yP-xt-bd8" firstAttribute="top" secondItem="25x-Zr-zVS" secondAttribute="bottom" constant="27" id="R0G-ca-oUU"/>
+                            <constraint firstItem="W3Y-IZ-9Hp" firstAttribute="centerX" secondItem="Y4f-Sz-6iq" secondAttribute="centerX" id="RGa-wB-sE4"/>
+                            <constraint firstItem="W3Y-IZ-9Hp" firstAttribute="top" secondItem="TVw-17-6ww" secondAttribute="bottom" constant="15" id="T8f-iB-WZ0"/>
+                            <constraint firstItem="kL7-0b-IyI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="W3Y-IZ-9Hp" secondAttribute="bottom" constant="20" id="TjM-R9-zXs"/>
+                            <constraint firstItem="25x-Zr-zVS" firstAttribute="top" secondItem="kL7-0b-IyI" secondAttribute="bottom" constant="42" id="Xnw-AK-cH2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7pZ-VE-niL" secondAttribute="trailing" constant="-7" id="gIT-lx-rnA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kL7-0b-IyI" secondAttribute="trailing" constant="25" id="kxG-Ac-unN"/>
+                            <constraint firstItem="25x-Zr-zVS" firstAttribute="centerX" secondItem="Y4f-Sz-6iq" secondAttribute="centerX" id="ply-r3-gk3"/>
+                            <constraint firstItem="7pZ-VE-niL" firstAttribute="leading" secondItem="Y4f-Sz-6iq" secondAttribute="leadingMargin" constant="-16" id="vXz-TO-0nN"/>
+                            <constraint firstItem="kL7-0b-IyI" firstAttribute="leading" secondItem="Y4f-Sz-6iq" secondAttribute="leadingMargin" constant="24" id="w0H-QA-Uu4"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Start Recording" id="dPY-gv-xk6"/>
+                    <connections>
+                        <outlet property="startRecordingButton" destination="25x-Zr-zVS" id="gkg-eI-8y3"/>
+                        <outlet property="textView" destination="kL7-0b-IyI" id="cjg-pw-Z70"/>
+                        <outlet property="textViewHeightConstraint" destination="rQT-mi-vVE" id="tPo-p5-daZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YO6-uv-0Pq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="-985.45727136431788"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="fx2-B9-TYj">
+            <objects>
+                <tabBarController id="F4b-ll-bK4" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="9tk-2d-dUr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Cfr-fC-x7C" kind="relationship" relationship="viewControllers" id="cLC-L4-Oi1"/>
+                        <segue destination="ay0-2D-ZXG" kind="relationship" relationship="viewControllers" id="J53-yn-bCx"/>
+                        <segue destination="t0G-Sq-2rb" kind="relationship" relationship="viewControllers" id="O6P-lC-QR7"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CXz-iR-CWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-335" y="-207"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Alpha Gradient" width="50" height="1000"/>
+    </resources>
 </document>
