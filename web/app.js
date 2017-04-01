@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 
 app.get('/', routes.home);
 app.get('/suggestions/:uid', routes.suggestions);
+app.get('/dayStats/:uid', routes.suggestions);
+app.get('/weekStats/:uid', routes.suggestions);
 app.post('/roomData/:uid', routes.roomData);
 app.post('/dreamLog/:uid', routes.dreamLog);
 
