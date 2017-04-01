@@ -12,21 +12,14 @@ let greenColor = UIColor(hex: 0x71F4BC)
 
 let veryLightGray = UIColor(hex: 0xF0F0F0)
 
-enum TrendType : String {
-	case airPressure = "Air Pressure"
-	case temperature = "Temperature"
-	
-	
- static let trends = [TrendType.airPressure, .temperature]
-	
-	
-}
-
 class TrendCell: UITableViewCell {
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var chartView: LineChartView!
+	var isQuality = true // quality (user chosen) or sentiment
+	@IBOutlet weak var xAxisLabel: UILabel!
+	var type : TrendType!
+	var axisLabel : UILabel?
 	
-
     override func awakeFromNib() {
         super.awakeFromNib()
 		
@@ -54,6 +47,7 @@ class TrendCell: UITableViewCell {
 		chartView.xAxis.labelTextColor = UIColor.lightGray
 		
 		chartView.noDataText = "No data yet"
+		
     }
 	
 	func updateChart(yVals: [Double]) {
@@ -76,6 +70,24 @@ class TrendCell: UITableViewCell {
 		let data = LineChartData(dataSets: dataSets)
 		chartView.data = data
 		chartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easing: nil)
+		titleLabel.text = "\(isQuality ? "Dream quality" : "Sleep rating") affected by \(type.rawValue.lowercased())"
+		xAxisLabel.text = type.rawValue
+		addLeftAxisLabel(text: isQuality ? "Dream quality" : "Sleep Rating (1-10)")
 	}
-    
+	
+	
+	func addLeftAxisLabel(text: String) {
+		axisLabel?.removeFromSuperview()
+		let font = UIFont(name: "Avenir Next", size: 15.0)!
+		let labelSize = (text as NSString).size(attributes: [NSFontAttributeName: font])
+		axisLabel = UILabel()
+		axisLabel?.text = text
+		axisLabel?.font = font
+		axisLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
+		axisLabel?.frame = CGRect(x: chartView.frame.origin.x - 25, y: 100, width: labelSize.height, height: labelSize.width)
+		axisLabel?.center.y = chartView.center.y
+		self.addSubview(axisLabel!)
+		
+	}
+	
 }

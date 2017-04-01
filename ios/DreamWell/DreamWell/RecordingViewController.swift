@@ -25,7 +25,7 @@ class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		Services.postSleepLogs(text: "hello wassup it worked maddafacka")
         // Do any additional setup after loading the view.
 		speechRecognizer.delegate = self  //3
 		
