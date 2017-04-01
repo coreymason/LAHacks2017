@@ -7,6 +7,6 @@ target 'DreamWell' do
   pod 'Charts'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
-  # Pods for DreamWell
+  pod 'AlamofireSwiftyJSON'
 
 end
