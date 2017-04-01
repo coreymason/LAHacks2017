@@ -20,7 +20,7 @@ module.exports = {
 		    method: 'POST',
 		    uri: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
 		    body: {
-		        data: {'documents': ['language': 'en', 'id': '0', 'text': req.body.text]}
+		        data: {'documents': [{'language': 'en', 'id': '0', 'text': req.body.text}]}
 		    },
 				headers: {
 					'Ocp-Apim-Subscription-Key': secrets.cog
@@ -37,7 +37,7 @@ module.exports = {
 		    method: 'POST',
 		    uri: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases',
 		    body: {
-		        data: {'documents': ['language': 'en', 'id': '0', 'text': req.body.text]}
+		        data: {'documents': [{'language': 'en', 'id': '0', 'text': req.body.text}]}
 		    },
 				headers: {
 					'Ocp-Apim-Subscription-Key': secrets.cog
@@ -53,10 +53,10 @@ module.exports = {
 
 		//send to database
 		var newDreamLog = {
-			date = new Date(),
-			dreamContent = req.body.text,
-			keywords = kewords,
-			sentiment = sentiment
+			date: new Date(),
+			dreamContent: req.body.text,
+			keywords: kewords,
+			sentiment: sentiment
 		}
 		database.ref('users/' + req.params.uid).child('dreamLogs').push(newDreamLog).then(function() {
 			res.sendStatus(200);
