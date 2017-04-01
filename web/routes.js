@@ -58,7 +58,7 @@ module.exports = {
 			keywords = kewords,
 			sentiment = sentiment
 		}
-		database.ref('users/' + userId).child('dreamLogs').push(newDreamLog).then(function() {
+		database.ref('users/' + req.params.uid).child('dreamLogs').push(newDreamLog).then(function() {
 			res.sendStatus(200);
 		}).catch(function(err) {
 			res.status(500).send(err);

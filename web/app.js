@@ -14,8 +14,8 @@ var port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 
 app.get('/', routes.home);
-app.get('/suggestions', routes.suggestions);
-app.post('/roomData', routes.roomData);
-app.post('/dreamLog', routes.dreamLog);
+app.get('/suggestions/:uid', routes.suggestions);
+app.post('/roomData/:uid', routes.roomData);
+app.post('/dreamLog/:uid', routes.dreamLog);
 
 app.listen(port);
