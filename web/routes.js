@@ -1,3 +1,16 @@
+var express = require('express'),
+	bodyParser = require('body-parser'),
+	rp = require('request-promise'),
+	firebase = require("firebase"),
+	secrets = require("./secrets"),
+	app = express();
+
+var port = process.env.PORT || 8080;
+
+firebase.initializeApp(secrets.fbconfig);
+var database = firebase.database();
+
+
 module.exports = {
 	home: function() {
 		// body...
@@ -42,6 +55,7 @@ module.exports = {
 	},
 
 	//adds log of dream as well as keywords and sentiment analysis to database
+	//Post body needs text key and value is the transcript
 	dreamLog: function(req, res) {
 		if(!req.body) {
 			//nothing sent
@@ -53,49 +67,56 @@ module.exports = {
 		    method: 'POST',
 		    uri: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
 		    body: {
-		        data: {'documents': [{'language': 'en', 'id': '0', 'text': req.body.text}]}
+		        documents: [{'language': 'en', 'id': '0', 'text': req.body.text}]
 		    },
 				headers: {
-					'Ocp-Apim-Subscription-Key': secrets.cog
+					'Ocp-Apim-Subscription-Key': secrets.cog,
+					'Content-Type': 'application/json'
 				},
 		    json: true
 			};
 			rp(optionsSent).then(function(body) {
-				sentiment = body.documents.score;
-			}).catch(function(err) {
-				res.status(500).send(err);
-			});
+				sentiment = body.documents[0].score;
 
-			var optionsKey = {
-		    method: 'POST',
-		    uri: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases',
-		    body: {
-		        data: {'documents': [{'language': 'en', 'id': '0', 'text': req.body.text}]}
-		    },
-				headers: {
-					'Ocp-Apim-Subscription-Key': secrets.cog
-				},
-		    json: true
-			};
-			rp(optionsKey).then(function(body) {
-				keywords = body.documents.keyPhrases;
+				//Done, keywords next
+				var optionsKey = {
+			    method: 'POST',
+			    uri: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases',
+			    body: {
+			        documents: [{'language': 'en', 'id': '0', 'text': req.body.text}]
+			    },
+					headers: {
+						'Ocp-Apim-Subscription-Key': secrets.cog,
+						'Content-Type': 'application/json'
+					},
+			    json: true
+				};
+				rp(optionsKey).then(function(body) {
+					keywords = body.documents[0].keyPhrases;
+
+					//Done, now submit to db
+					//send to database
+					var newDreamLog = {
+						date: new Date().toISOString().slice(0,10),
+						dreamContent: req.body.text,
+						keywords: keywords,
+						sentiment: sentiment,
+						roomData: {temp: null}
+					}
+					//database.ref('users/' + req.params.uid).child('dreamLogs').push(newDreamLog).then(function() {
+					var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+					userDB.child('dreamLogs').push(newDreamLog).then(function() {
+						res.sendStatus(200);
+					}).catch(function(err) {
+						res.status(500).send(err);
+					});
+				}).catch(function(err) {
+					res.status(500).send(err);
+				});
 			}).catch(function(err) {
 				res.status(500).send(err);
 			});
 		}
-
-		//send to database
-		var newDreamLog = {
-			date: new Date().toISOString().slice(0,10),
-			dreamContent: req.body.text,
-			keywords: kewords,
-			sentiment: sentiment
-		}
-		database.ref('users/' + req.params.uid).child('dreamLogs').push(newDreamLog).then(function() {
-			res.sendStatus(200);
-		}).catch(function(err) {
-			res.status(500).send(err);
-		});
 	},
 
 }
