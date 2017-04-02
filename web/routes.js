@@ -102,7 +102,7 @@ module.exports = {
 						dreamContent: req.body.text,
 						keywords: keywords,
 						sentiment: sentiment,
-						sleepQuality: req.body.quality
+						sleepQuality: ((req.body.quality == undefined) ? null : req.body.quality)
 					}
 					var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 					userDB.child('dreamLogs').push(newDreamLog).then(function() {
