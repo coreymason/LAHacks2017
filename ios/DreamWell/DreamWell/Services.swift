@@ -46,7 +46,9 @@ struct Services {
 				print("Error: \(response.result.error)")
 				return
 			}
-			delegate?.dailyStatsReceived(json: json)
+			DispatchQueue.main.async {
+				delegate?.dailyStatsReceived(json: json)
+			}
 		}
 	}
 }

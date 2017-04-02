@@ -26,6 +26,7 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		Services.delegate = self
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.backgroundColor = UIColor.clear
@@ -61,6 +62,11 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 		Services.delegate = self
 		Services.getDailyStat()
     }
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		Services.delegate = self
+	}
 	
 	func addLeftAxisLabel(text: String) {
 		axisLabel?.removeFromSuperview()
@@ -125,11 +131,6 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		
-	}
 
 }
 
