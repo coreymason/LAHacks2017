@@ -10,9 +10,8 @@ firebase.initializeApp(secrets.fbconfig);
 var database = firebase.database();
 
 module.exports = {
-	home: function(req, res) {
+	home: function() {
 		console.log("hey");
-		res.send("Hello");
 	},
 
 	//Checks if there are 7 days of data, if so look for suggestions and report them
@@ -22,7 +21,7 @@ module.exports = {
 		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 		userDB.child('dreamLogs').once('value').then(function(snapshot) {
 			numPoints = snapshot.numChildren();
-			if(numPoints >= 0) {
+			if(numPoints >= 7) {
 				//Gather data for csv
 				var data = {
 					'index': [],
@@ -47,25 +46,24 @@ module.exports = {
 					//Make csv
 					var csv = json2csv({ data: data, fields: ['index', 'heat', 'light', 'humidity', 'quality'] });
 					fs.writeFile('suggestionData.csv', csv, function(err) {
-					  	if(err) {
+					  if(err) {
 							res.status(500).send(err);
 							throw err; //do we need a return here somewhere?
 						}
-						console.log('file saved');
+					  console.log('file saved');
 
 						//Launch python script
 						var pyoptions = {
 							mode: 'json',
 						}
-						var pyshell = new PythonShell('linear_regression_engine.py');
-						pyshell.on('message', function (message) {
-				  			console.log(message);
-						});
-
-						pyshell.end(function (err) {
-						  	if (err) throw err;
-						  	console.log('finished');
-						});
+						PythonShell.run('linear_regression_engine.py', pyoptions, function(err, results) {
+			  			if(err) {
+								res.status(500).send(err);
+								throw err; //do we need a return here somewhere?
+							}
+						  // results is an array consisting of messages collected during execution
+							return status(200).send(results);
+						}); //pyshell
 					}); //writefile
 				}); //parent
 			}
