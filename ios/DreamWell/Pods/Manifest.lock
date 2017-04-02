@@ -24,6 +24,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - HCSStarRatingView (1.5)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - Charts
   - Firebase/Core
   - Firebase/Database
+  - HCSStarRatingView (~> 1.5)
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -42,8 +44,9 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 254fa32b197977cf5fd898c57c59fc56f61c28fd
+PODFILE CHECKSUM: 37e4808539974d7bed0f3b18415834e77496e574
 
 COCOAPODS: 1.2.0
