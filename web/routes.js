@@ -1,10 +1,8 @@
 var express = require('express'),
 	rp = require('request-promise'),
 	firebase = require("firebase"),
-	secrets = require("./secrets"),
-	app = express();
-
-var port = process.env.PORT || 8080;
+	PythonShell = require('python-shell'),
+	secrets = require("./secrets")
 
 firebase.initializeApp(secrets.fbconfig);
 var database = firebase.database();
@@ -14,7 +12,28 @@ module.exports = {
 		console.log("hey");
 	},
 
+	//Checks if there are 7 days of data, if so look for suggestions and report them
 	suggestions: function(req, res) {
+		var numPoints = 0;
+		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+		userDB.child('dreamLogs').once('value').then(function(snapshot) {
+			numPoints = snapshot.numChildren();
+			if(numPoints >= 7) {
+				var pyoptions = {
+					mode: 'json',
+					args: [] //data arrays/input args needed!
+				}
+				PythonShell.run('get_suggestions.py', pyoptions, function(err, results) {
+	  			if(err) {
+						res.status(500).send(err);
+						throw err; //do we need a return here somewhere?
+					}
+				  // results is an array consisting of messages collected during execution
+					return status(200).send(results);
+				});
+			}
+		});
+		res.status(204).send({});
 	},
 
 	//Returns the current day's stats or else empty
