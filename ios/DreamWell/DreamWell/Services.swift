@@ -30,8 +30,8 @@ struct Services {
 		}
 	}
 	
-	static func getDailyStat() {
-		let endpoint: String = "\(root)/dayStats/\(userID)"
+	static func getDailyStat(dayOffset : Int = 0) {
+		let endpoint = "\(root)/pastDayStats/\(userID)/\(dayOffset)"
 		Alamofire.request(endpoint).responseJSON { response in
 			// check for errors
 			guard response.result.error == nil else {
@@ -51,6 +51,11 @@ struct Services {
 			}
 		}
 	}
+	
+	static func getSuggestion() {
+		
+	}
+	
 }
 
 protocol ServicesDelegate {

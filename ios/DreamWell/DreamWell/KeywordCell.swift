@@ -9,6 +9,9 @@
 import UIKit
 
 class KeywordCell: UITableViewCell {
+	@IBOutlet weak var firstLabel: UILabel!
+	@IBOutlet weak var secondLabel: UILabel!
+	@IBOutlet weak var firstHeightConstraint: NSLayoutConstraint!
 
     override func awakeFromNib() {
         super.awakeFromNib()

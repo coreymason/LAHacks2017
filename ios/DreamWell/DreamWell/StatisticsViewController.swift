@@ -45,6 +45,7 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 		chartView.leftAxis.drawLabelsEnabled = false
 		chartView.rightAxis.enabled = false
 		chartView.xAxis.enabled = true
+		chartView.xAxis.avoidFirstLastClippingEnabled = true
 		chartView.gridBackgroundColor = UIColor.white
 		chartView.borderColor = veryLightGray
 		
@@ -90,7 +91,7 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 	func dailyStatsReceived(json: [String : Any]) {
 		print(json)
 		positivity = Int(((json["sentiment"] as? Double) ?? 0.0) * 100)
-		transcriptTextView.text = "Transcript: " + (json["dreamContent"] as! String)
+		transcriptTextView.text = " Transcript: " + (json["dreamContent"] as! String)
 		let roomData = json["roomData"] as! [String : Any]
 		humidity = roomData["humidAvg"] as? Int
 		lightAvg = roomData["lightAvg"] as? Int
@@ -168,7 +169,7 @@ extension StatisticsViewController : UITableViewDelegate, UITableViewDataSource 
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 5
+		return 6
 	}
 }
 

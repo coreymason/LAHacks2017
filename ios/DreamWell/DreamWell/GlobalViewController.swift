@@ -44,7 +44,9 @@ class GlobalViewController: UIViewController, ServicesDelegate {
 	
 	func dailyStatsReceived(json: [String : Any]) {
 		let globalData = json["globalData"] as! [String : Any]
-		let emotionArr = globalData["ratios"] as! NSArray as! [Double]
+		let emotionArr = (globalData["ratios"] as! NSArray as! [String]).map { (str) -> Double in
+			return Double(str)!
+		}
 		var entries = [PieChartDataEntry]()
 		for i in 0..<emotions.count {
 			entries.append(PieChartDataEntry(value: round(emotionArr[i] * 100), label: emotions[i]))
