@@ -8,5 +8,6 @@ target 'DreamWell' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'AlamofireSwiftyJSON'
-
+  pod 'HCSStarRatingView', '~> 1.5'
+  
 end

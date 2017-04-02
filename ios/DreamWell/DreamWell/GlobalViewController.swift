@@ -20,7 +20,7 @@ class GlobalViewController: UIViewController {
 		chartView.usePercentValuesEnabled = true
 		chartView.holeRadiusPercent = 0.58
 		chartView.transparentCircleRadiusPercent = 0.61
-		chartView.holeColor = greenColor
+		chartView.holeColor = UIColor.white
 		chartView.descriptionText = ""
 		chartView.drawCenterTextEnabled = true
 		chartView.drawHoleEnabled = true
@@ -34,21 +34,17 @@ class GlobalViewController: UIViewController {
 		//chartView.legend.entries = [legendEntry]
 		
 		var entries = [PieChartDataEntry]()
-		entries.append(PieChartDataEntry(value: 14.0, label: emotions[0]))
-		entries.append(PieChartDataEntry(value: 16.0, label: emotions[1]))
-		entries.append(PieChartDataEntry(value: 10.0, label: emotions[2]))
-		entries.append(PieChartDataEntry(value: 14.0, label: emotions[3]))
-		entries.append(PieChartDataEntry(value: 13.0, label: emotions[4]))
-		entries.append(PieChartDataEntry(value: 16.0, label: emotions[5]))
-		entries.append(PieChartDataEntry(value: 17.0, label: emotions[6]))
+		for i in 0..<emotions.count {
+			entries.append(PieChartDataEntry(value: 14.0, label: emotions[i]))
+		}
 		let dataSet = PieChartDataSet(values: entries, label: nil)
-		dataSet.colors = [UIColor(hex: 0x3498db),
-		                  UIColor(hex: 0xc0392b),
-		                  UIColor(hex: 0x16a085),
-		                  UIColor(hex: 0x7f8c8d),
-		                  UIColor(hex: 0xf1c40f),
-		                  UIColor(hex: 0x9b59b6),
-		                  UIColor(hex: 0x2c3e50)]
+		dataSet.colors = [greenColor,
+		                  greenColor.withAlphaComponent(0.8),
+		                  greenColor.withAlphaComponent(0.60),
+		                  greenColor.withAlphaComponent(0.40),
+		                  UIColor.black.withAlphaComponent(0.1),
+		                  UIColor.black.withAlphaComponent(0.2),
+		                  UIColor.black.withAlphaComponent(0.25)]
 		let data = PieChartData(dataSets: [dataSet])
 		let formatter = DefaultValueFormatter { (val, entry, index, handle) -> String in
 			return "\(Int(val))%"

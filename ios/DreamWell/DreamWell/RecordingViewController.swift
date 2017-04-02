@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import HCSStarRatingView
 import Speech
 
 class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 	@IBOutlet weak var startRecordingButton: UIButton!
 
+	@IBOutlet weak var starView: HCSStarRatingView!
+	@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
 	@IBOutlet weak var textView: UITextView!
 	@IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
 	
@@ -25,7 +28,7 @@ class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		Services.postSleepLogs(text: "hello wassup it worked maddafacka")
+		//Services.postSleepLogs(text: "hello wassup it worked maddafacka")
         // Do any additional setup after loading the view.
 		speechRecognizer.delegate = self  //3
 		
@@ -38,14 +41,12 @@ class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 	
 	func textViewDidChange(_ textView: UITextView) {
 		let lines = numberOfLines(textView: textView)
-		if lines > recordedLines {
-			recordedLines = lines
-			moveTextViewUp()
-		}
+		recordedLines = lines
+		moveTextViewUp()
 	}
 	
 	func moveTextViewUp() {
-		textViewHeightConstraint.constant = CGFloat(40 * recordedLines) + 40.0
+		textViewHeightConstraint.constant = CGFloat(30 * recordedLines) + 40.0
 		let stringLength:Int = self.textView.text.characters.count
 		self.textView.scrollRangeToVisible(NSMakeRange(stringLength-1, 0))
 		UIView.animate(withDuration: 0.3) {
@@ -70,13 +71,40 @@ class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 		return numberOfLines
 	}
 	
+	func showStars() {
+		self.bottomConstraint.constant += 70
+		startRecordingButton.isEnabled = false
+		UIView.animate(withDuration: 1.0) {
+			self.starView.alpha = 1.0
+			self.view.layoutIfNeeded()
+		}
+	}
+	
+	@IBAction func starsSet(_ sender: Any) {
+		if (sender as! UIView).alpha == 1.0 {
+			startRecordingButton.setTitle("Start Recording", for: UIControlState())
+			textView.text = "Dream Uploaded! Expect results in a few seconds.\n\n"
+			sendText()
+			hideStars()
+		}
+	}
+	
+	func hideStars() {
+		self.bottomConstraint.constant -= 70
+		startRecordingButton.isEnabled = true
+		UIView.animate(withDuration: 1.0, animations: { 
+			self.starView.alpha = 0.0
+			self.view.layoutIfNeeded()
+		}) { (succ) in
+			self.starView.value = 0.0
+		}
+	}
 	
 	@IBAction func startRecording(_ sender: Any) { //button press
 		if recognitionTask != nil { // stop
 			recognitionTask?.cancel()
 			recognitionTask = nil
-			startRecordingButton.setTitle("Start Recording", for: UIControlState())
-			sendText()
+			showStars()
 			return
 		}
 		startRecordingButton.setTitle("Stop Recording", for: UIControlState())
@@ -138,7 +166,7 @@ class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 	}
 	
 	func sendText() {
-		//
+		Services.postSleepLogs(text: textView.text, stars: Int(starView.value * 2.0))
 	}
 }
 

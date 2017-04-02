@@ -1,30 +1,49 @@
 var express = require('express'),
-	bodyParser = require('body-parser'),
 	rp = require('request-promise'),
 	firebase = require("firebase"),
-	secrets = require("./secrets"),
-	app = express();
-
-var port = process.env.PORT || 8080;
+	PythonShell = require('python-shell'),
+	secrets = require("./secrets")
 
 firebase.initializeApp(secrets.fbconfig);
 var database = firebase.database();
 
-
 module.exports = {
 	home: function() {
-		// body...
+		console.log("hey");
 	},
 
+	//Checks if there are 7 days of data, if so look for suggestions and report them
 	suggestions: function(req, res) {
+		var numPoints = 0;
+		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+		userDB.child('dreamLogs').once('value').then(function(snapshot) {
+			numPoints = snapshot.numChildren();
+			if(numPoints >= 7) {
+				var pyoptions = {
+					mode: 'json',
+					args: [] //data arrays/input args needed!
+				}
+				PythonShell.run('get_suggestions.py', pyoptions, function(err, results) {
+	  			if(err) {
+						res.status(500).send(err);
+						throw err; //do we need a return here somewhere?
+					}
+				  // results is an array consisting of messages collected during execution
+					return status(200).send(results);
+				});
+			}
+		});
+		res.status(204).send({});
 	},
 
 	//Returns the current day's stats or else empty
 	dayStats: function(req, res) {
 		var currDate = new Date().toISOString().slice(0,10);
-		var recentDayPost = database.ref('users/' + req.params.uid).child('dreamLogs').limitToLast(1).once('value').then(function(snapshot) {
-			if(currDate == snapshot.val().date) {
-				res.status(200).send(snapshot.val());
+		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+		userDB.child('dreamLogs').limitToLast(1).once('value').then(function(snapshot) {
+			var dreamLogObj = Object.keys(snapshot.val())[0];
+			if(currDate == snapshot.val()[dreamLogObj].date) {
+				res.status(200).send(snapshot.val()[dreamLogObj]);
 			} else {
 				res.status(204).send({});
 			}
@@ -34,21 +53,22 @@ module.exports = {
 	//Returns array of 7 objects from most recent to oldest day 7; empty if no data for that day
 	weekStats: function(req, res) {
 		var ret = [{}, {}, {}, {}, {}, {}, {}];
-		var recentWeekPosts = database.ref('users/' + req.params.uid).child('dreamLogs').limitToLast(7).once('value').then(function(snapshot) { //get parent
+		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+		userDB.child('dreamLogs').limitToLast(7).once('value').then(function(snapshot) { //get parent
 			snapshot.forEach(function(childSnapshot) { //loop through children
 				//Calulate difference in days
-				var currDate = new Date();
-				var logDate = new Date(childSnapshot.date.val());
+				var currDate = new Date(new Date().toISOString().slice(0,10));
+				var logDate = new Date(childSnapshot.val().date);
 				var utc1 = Date.UTC(logDate.getFullYear(), logDate.getMonth(), logDate.getDate());
 				var utc2 = Date.UTC(currDate.getFullYear(), currDate.getMonth(), currDate.getDate());
-				var diffDays = Math.floor((utc2 - utc1) / 100 / 60 / 60 / 24);
+				var diffDays = Math.floor((utc2 - utc1) / 1000 / 60 / 60 / 24);
 				//add to array if within last 7, including today
 				if(diffDays < 7) {
 					ret[diffDays] = childSnapshot.val();
 				}
 			});
+			res.status(200).send(ret);
 		});
-		res.status(200).send(ret);
 	},
 
 	roomData: function(req, res) {
@@ -101,9 +121,8 @@ module.exports = {
 						dreamContent: req.body.text,
 						keywords: keywords,
 						sentiment: sentiment,
-						roomData: {temp: null}
+						sleepQuality: ((req.body.quality == undefined) ? null : req.body.quality)
 					}
-					//database.ref('users/' + req.params.uid).child('dreamLogs').push(newDreamLog).then(function() {
 					var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 					userDB.child('dreamLogs').push(newDreamLog).then(function() {
 						res.sendStatus(200);
