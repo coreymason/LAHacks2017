@@ -27,7 +27,8 @@ module.exports = {
 					'index': [],
 					'heat': [],
 					'light': [],
-					'humidity': []
+					'humidity': [],
+					'quality': []
 				};
 				var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 				userDB.child('dreamLogs').once('value').then(function(snapshot) { //get parent
@@ -37,12 +38,13 @@ module.exports = {
 						data.heat.push(childSnapshot.val().roomData.tempAvg);
 						data.light.push(childSnapshot.val().roomData.lightAvg);
 						data.humidity.push(childSnapshot.val().roomData.humidAvg);
+						data.humidity.push(childSnapshot.val().sleepQuality);
 						tempCounter++;
 					});
 					console.log('sdatadone');
 
 					//Make csv
-					var csv = json2csv({ data: data, fields: ['index', 'heat', 'light', 'humidity'] });
+					var csv = json2csv({ data: data, fields: ['index', 'heat', 'light', 'humidity', 'quality'] });
 					fs.writeFile('suggestionData.csv', csv, function(err) {
 					  if(err) {
 							res.status(500).send(err);
@@ -54,7 +56,7 @@ module.exports = {
 						var pyoptions = {
 							mode: 'json',
 						}
-						PythonShell.run('get_suggestions.py', pyoptions, function(err, results) {
+						PythonShell.run('linear_regression_engine.py', pyoptions, function(err, results) {
 			  			if(err) {
 								res.status(500).send(err);
 								throw err; //do we need a return here somewhere?
