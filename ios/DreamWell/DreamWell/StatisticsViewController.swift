@@ -100,6 +100,25 @@ extension StatisticsViewController : UITableViewDelegate, UITableViewDataSource 
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+		switch indexPath.row {
+		case 0:
+			(cell.viewWithTag(0) as! UILabel).text = "Dream Quality"
+			(cell.viewWithTag(1) as! UILabel).text = "91%"
+		case 1:
+			(cell.viewWithTag(0) as! UILabel).text = "Temperature"
+			(cell.viewWithTag(1) as! UILabel).text = "75º"
+		case 2:
+			(cell.viewWithTag(0) as! UILabel).text = "Humidity"
+			(cell.viewWithTag(1) as! UILabel).text = "24%"
+		case 3:
+			(cell.viewWithTag(0) as! UILabel).text = "Sleep rating"
+			(cell.viewWithTag(1) as! UILabel).text = "9/10"
+		case 4:
+			(cell.viewWithTag(0) as! UILabel).text = "Emotion"
+			(cell.viewWithTag(1) as! UILabel).text = "Happiness"
+		default:
+			break
+		}
 		return cell
 	}
 	
@@ -107,3 +126,7 @@ extension StatisticsViewController : UITableViewDelegate, UITableViewDataSource 
 		return 5
 	}
 }
+
+
+
+

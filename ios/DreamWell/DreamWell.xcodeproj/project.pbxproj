@@ -21,6 +21,7 @@
 		0F7F06521E8FDB2C00CFE5D2 /* KeywordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F06501E8FDB2C00CFE5D2 /* KeywordCell.swift */; };
 		0F7F06531E8FDB2C00CFE5D2 /* KeywordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F06511E8FDB2C00CFE5D2 /* KeywordCell.xib */; };
 		0F7F06551E8FE5FD00CFE5D2 /* GlobalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F06541E8FE5FD00CFE5D2 /* GlobalViewController.swift */; };
+		0F7F06581E90449A00CFE5D2 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F06571E90449A00CFE5D2 /* Services.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		0F7F06501E8FDB2C00CFE5D2 /* KeywordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeywordCell.swift; sourceTree = "<group>"; };
 		0F7F06511E8FDB2C00CFE5D2 /* KeywordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeywordCell.xib; sourceTree = "<group>"; };
 		0F7F06541E8FE5FD00CFE5D2 /* GlobalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalViewController.swift; sourceTree = "<group>"; };
+		0F7F06571E90449A00CFE5D2 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		2E7949C139A5022B59F9922D /* Pods-DreamWell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DreamWell.release.xcconfig"; path = "Pods/Target Support Files/Pods-DreamWell/Pods-DreamWell.release.xcconfig"; sourceTree = "<group>"; };
 		7D2F9115A05C7E08EBC3FA87 /* Pods-DreamWell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DreamWell.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DreamWell/Pods-DreamWell.debug.xcconfig"; sourceTree = "<group>"; };
 		819E6A38B8F4328A15DA0E49 /* Pods_DreamWell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DreamWell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				0F7F06321E8F8B6900CFE5D2 /* AppDelegate.swift */,
+				0F7F06571E90449A00CFE5D2 /* Services.swift */,
 				0F7F06361E8F8B6A00CFE5D2 /* Main.storyboard */,
 				0F7F06391E8F8B6A00CFE5D2 /* Assets.xcassets */,
 				0F7F063B1E8F8B6A00CFE5D2 /* LaunchScreen.storyboard */,
@@ -245,6 +248,7 @@
 				0F7F064F1E8FCF0600CFE5D2 /* UIColorExtensions.swift in Sources */,
 				0F7F06551E8FE5FD00CFE5D2 /* GlobalViewController.swift in Sources */,
 				0F7F06491E8FA3BD00CFE5D2 /* TrendsViewController.swift in Sources */,
+				0F7F06581E90449A00CFE5D2 /* Services.swift in Sources */,
 				0F7F06471E8FA3B000CFE5D2 /* StatisticsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

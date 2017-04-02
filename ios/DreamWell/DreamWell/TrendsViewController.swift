@@ -9,6 +9,15 @@
 import UIKit
 import Charts
 
+enum TrendType : String {
+	case airPressure = "Air Pressure"
+	case temperature = "Temperature"
+	
+	
+ static let trends = [airPressure, temperature]
+	
+	
+}
 class TrendsViewController: UIViewController {
 
 	@IBOutlet weak var tableView: UITableView!
@@ -53,7 +62,8 @@ extension TrendsViewController : UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 5
+		// one for keywords, then two for each trend type, becuase one for dream quality and one for sentiment
+		return 1 + (2 * TrendType.trends.count)
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,6 +73,10 @@ extension TrendsViewController : UITableViewDelegate, UITableViewDataSource {
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! TrendCell
 			//cell.layer.masksToBounds = true
+			if indexPath.row % 2 == 0 {
+				cell.isQuality = false
+			}
+			cell.type = TrendType.trends[(indexPath.row - 1) / 2]
 			var yVals = [Double]()
 			for _ in 0..<(segmentedControl.selectedSegmentIndex == 2 ? 47 : segmentedControl.selectedSegmentIndex == 1 ? 30 : 7) {
 				yVals.append(Double(arc4random_uniform(27) + 1))
