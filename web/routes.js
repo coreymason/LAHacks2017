@@ -99,7 +99,8 @@ module.exports = {
 				var diffDays = Math.floor((utc2 - utc1) / 1000 / 60 / 60 / 24);
 				//add to array if within last 7, including today
 				if(diffDays == req.params.ago) {
-					return res.status(200).send(childSnapshot.val());
+					res.status(200).send(childSnapshot.val());
+					return;
 				}
 			});
 			res.status(204).send({});
