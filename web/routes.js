@@ -10,8 +10,9 @@ firebase.initializeApp(secrets.fbconfig);
 var database = firebase.database();
 
 module.exports = {
-	home: function() {
+	home: function(req, res) {
 		console.log("hey");
+		res.send("Hello");
 	},
 
 	//Checks if there are 7 days of data, if so look for suggestions and report them
@@ -46,24 +47,25 @@ module.exports = {
 					//Make csv
 					var csv = json2csv({ data: data, fields: ['index', 'heat', 'light', 'humidity', 'quality'] });
 					fs.writeFile('suggestionData.csv', csv, function(err) {
-					  if(err) {
+					  	if(err) {
 							res.status(500).send(err);
 							throw err; //do we need a return here somewhere?
 						}
-					  console.log('file saved');
+						console.log('file saved');
 
 						//Launch python script
 						var pyoptions = {
 							mode: 'json',
 						}
-						PythonShell.run('linear_regression_engine.py', pyoptions, function(err, results) {
-			  			if(err) {
-								res.status(500).send(err);
-								throw err; //do we need a return here somewhere?
-							}
-						  // results is an array consisting of messages collected during execution
-							return status(200).send(results);
-						}); //pyshell
+						var pyshell = new PythonShell('linear_regression_engine.py');
+						pyshell.on('message', function (message) {
+				  			console.log(message + "brother");
+						});
+
+						pyshell.end(function (err) {
+						  if (err) throw err;
+						  console.log('finished');
+						});
 					}); //writefile
 				}); //parent
 			}
