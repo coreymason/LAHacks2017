@@ -85,6 +85,24 @@ module.exports = {
 		});
 	},
 
+	pastDayStats: function(req, res) {
+		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+		userDB.child('dreamLogs').limitToLast(parseInt(req.params.ago)+1).once('value').then(function(snapshot) { //get parent
+			snapshot.forEach(function(childSnapshot) { //loop through children
+				//Calulate difference in days
+				var currDate = new Date(new Date().toISOString().slice(0,10));
+				var logDate = new Date(childSnapshot.val().date);
+				var utc1 = Date.UTC(logDate.getFullYear(), logDate.getMonth(), logDate.getDate());
+				var utc2 = Date.UTC(currDate.getFullYear(), currDate.getMonth(), currDate.getDate());
+				var diffDays = Math.floor((utc2 - utc1) / 1000 / 60 / 60 / 24);
+				//add to array if within last 7, including today
+				if(diffDays == req.params.ago) {
+					return res.status(200).send(childSnapshot.val());
+				}
+			});
+		});
+	},
+
 	//Returns array of 7 objects from most recent to oldest day 7; empty if no data for that day
 	weekStats: function(req, res) {
 		var ret = [{}, {}, {}, {}, {}, {}, {}];
@@ -104,6 +122,30 @@ module.exports = {
 			});
 			res.status(200).send(ret);
 		});
+	},
+
+	globalData: function(req, res) {
+		if(!req.body) {
+			//nothing sent
+			res.sendStatus(400);
+		} else {
+			var newGlobalData = {
+				moodIntensity: req.body.intensity,
+				worldMood: req.body.mood,
+				ratios: req.body.ratios
+			};
+			var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+			userDB.child('dreamLogs').limitToLast(1).once('value').then(function(snapshot) {
+				var dreamLogObj = Object.keys(snapshot.val())[0];
+				var updates = {};
+				updates['dreamLogs/'+dreamLogObj+'/globalData'] = newGlobalData;
+				userDB.update(updates).then(function() {
+					res.sendStatus(200);
+				}).catch(function(err) {
+					res.status(500).send(err);
+				});
+			});
+		}
 	},
 
 	roomData: function(req, res) {
