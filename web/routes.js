@@ -2,7 +2,9 @@ var express = require('express'),
 	rp = require('request-promise'),
 	firebase = require("firebase"),
 	PythonShell = require('python-shell'),
-	secrets = require("./secrets")
+	json2csv = require('json2csv'),
+	fs = require('fs'),
+	secrets = require("./secrets");
 
 firebase.initializeApp(secrets.fbconfig);
 var database = firebase.database();
@@ -14,25 +16,58 @@ module.exports = {
 
 	//Checks if there are 7 days of data, if so look for suggestions and report them
 	suggestions: function(req, res) {
+		console.log('sstart')
 		var numPoints = 0;
 		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 		userDB.child('dreamLogs').once('value').then(function(snapshot) {
 			numPoints = snapshot.numChildren();
-			if(numPoints >= 7) {
-				var pyoptions = {
-					mode: 'json',
-					args: [] //data arrays/input args needed!
-				}
-				PythonShell.run('get_suggestions.py', pyoptions, function(err, results) {
-	  			if(err) {
-						res.status(500).send(err);
-						throw err; //do we need a return here somewhere?
-					}
-				  // results is an array consisting of messages collected during execution
-					return status(200).send(results);
-				});
+			if(numPoints >= 0) {
+				//Gather data for csv
+				var data = {
+					'index': [],
+					'heat': [],
+					'light': [],
+					'humidity': [],
+					'quality': []
+				};
+				var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+				userDB.child('dreamLogs').once('value').then(function(snapshot) { //get parent
+					var tempCounter = 0;
+					snapshot.forEach(function(childSnapshot) { //loop through children
+						data.index.push(1+tempCounter);
+						data.heat.push(childSnapshot.val().roomData.tempAvg);
+						data.light.push(childSnapshot.val().roomData.lightAvg);
+						data.humidity.push(childSnapshot.val().roomData.humidAvg);
+						data.humidity.push(childSnapshot.val().sleepQuality);
+						tempCounter++;
+					});
+					console.log('sdatadone');
+
+					//Make csv
+					var csv = json2csv({ data: data, fields: ['index', 'heat', 'light', 'humidity', 'quality'] });
+					fs.writeFile('suggestionData.csv', csv, function(err) {
+					  if(err) {
+							res.status(500).send(err);
+							throw err; //do we need a return here somewhere?
+						}
+					  console.log('file saved');
+
+						//Launch python script
+						var pyoptions = {
+							mode: 'json',
+						}
+						PythonShell.run('linear_regression_engine.py', pyoptions, function(err, results) {
+			  			if(err) {
+								res.status(500).send(err);
+								throw err; //do we need a return here somewhere?
+							}
+						  // results is an array consisting of messages collected during execution
+							return status(200).send(results);
+						}); //pyshell
+					}); //writefile
+				}); //parent
 			}
-		});
+		}); //firstchild
 		res.status(204).send({});
 	},
 
@@ -72,6 +107,27 @@ module.exports = {
 	},
 
 	roomData: function(req, res) {
+		if(!req.body) {
+			//nothing sent
+			res.sendStatus(400);
+		} else {
+			var newRoomData = {
+				tempAvg: req.body.tempAvg,
+				lightAvg: req.body.lightAvg,
+				humidAvg: req.body.humidAvg
+			};
+			var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
+			userDB.child('dreamLogs').limitToLast(1).once('value').then(function(snapshot) {
+				var dreamLogObj = Object.keys(snapshot.val())[0];
+				var updates = {};
+				updates['dreamLogs/'+dreamLogObj+'/roomData'] = newRoomData;
+				userDB.update(updates).then(function() {
+					res.sendStatus(200);
+				}).catch(function(err) {
+					res.status(500).send(err);
+				});
+			});
+		}
 	},
 
 	//adds log of dream as well as keywords and sentiment analysis to database
