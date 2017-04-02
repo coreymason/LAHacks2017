@@ -55,7 +55,7 @@ module.exports = {
 
 						//Launch python script
 						var pyoptions = {
-							mode: 'json',
+							mode: 'text',
 						}
 						var pyshell = new PythonShell('linear_regression_engine.py');
 						pyshell.on('message', function (message) {
