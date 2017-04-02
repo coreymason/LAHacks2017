@@ -21,7 +21,7 @@ module.exports = {
 		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 		userDB.child('dreamLogs').once('value').then(function(snapshot) {
 			numPoints = snapshot.numChildren();
-			if(numPoints >= 0) {
+			if(numPoints >= 7) {
 				//Gather data for csv
 				var data = {
 					'index': [],
