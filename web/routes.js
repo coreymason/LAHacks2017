@@ -22,7 +22,7 @@ module.exports = {
 		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 		userDB.child('dreamLogs').once('value').then(function(snapshot) {
 			numPoints = snapshot.numChildren();
-			if(numPoints >= 7) {
+			if(numPoints >= 0) {
 				//Gather data for csv
 				var data = {
 					'index': [],
@@ -55,7 +55,7 @@ module.exports = {
 
 						//Launch python script
 						var pyoptions = {
-							mode: 'text',
+							mode: 'json',
 						}
 						var pyshell = new PythonShell('linear_regression_engine.py');
 						pyshell.on('message', function (message) {
