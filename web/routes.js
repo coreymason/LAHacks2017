@@ -59,12 +59,12 @@ module.exports = {
 						}
 						var pyshell = new PythonShell('linear_regression_engine.py');
 						pyshell.on('message', function (message) {
-				  			console.log(message + "brother");
+				  			console.log(message);
 						});
 
 						pyshell.end(function (err) {
-						  if (err) throw err;
-						  console.log('finished');
+						  	if (err) throw err;
+						  	console.log('finished');
 						});
 					}); //writefile
 				}); //parent
