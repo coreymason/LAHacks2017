@@ -4,14 +4,16 @@ var express = require('express'),
 	PythonShell = require('python-shell'),
 	json2csv = require('json2csv'),
 	fs = require('fs'),
+	path = require('path'),
 	secrets = require("./secrets");
 
 firebase.initializeApp(secrets.fbconfig);
 var database = firebase.database();
 
 module.exports = {
-	home: function() {
+	home: function(req, res) {
 		console.log("hey");
+		res.sendFile(path.join(__dirname + '/index.html'));
 	},
 
 	//Checks if there are 7 days of data, if so look for suggestions and report them

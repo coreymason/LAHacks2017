@@ -4,11 +4,14 @@ var express = require('express'),
 	firebase = require("firebase"),
 	secrets = require("./secrets"),
 	routes = require('./routes'),
+ 	path = require('path'),
 	app = express();
 
 var port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
