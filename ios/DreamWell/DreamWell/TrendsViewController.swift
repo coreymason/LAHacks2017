@@ -10,11 +10,12 @@ import UIKit
 import Charts
 
 enum TrendType : String {
-	case airPressure = "Air Pressure"
-	case temperature = "Temperature"
+	case airPressure	= "Air Pressure"
+	case temperature	= "Temperature"
+	case humidity		= "Humidity"
 	
 	
- static let trends = [airPressure, temperature]
+ static let trends = [airPressure, temperature, humidity]
 	
 	
 }
@@ -72,12 +73,10 @@ extension TrendsViewController : UITableViewDelegate, UITableViewDataSource {
 			return cell
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! TrendCell
-			//cell.layer.masksToBounds = true
-			if indexPath.row % 2 == 0 {
-				cell.isQuality = false
-			}
+			cell.isQuality = indexPath.row % 2 != 0
 			cell.type = TrendType.trends[(indexPath.row - 1) / 2]
 			var yVals = [Double]()
+			let randomOffset = Int(arc4random_uniform(27) + 1)
 			for _ in 0..<(segmentedControl.selectedSegmentIndex == 2 ? 47 : segmentedControl.selectedSegmentIndex == 1 ? 30 : 7) {
 				yVals.append(Double(arc4random_uniform(27) + 1))
 			}
