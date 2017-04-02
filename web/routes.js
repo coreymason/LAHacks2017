@@ -102,8 +102,10 @@ module.exports = {
 					res.status(200).send(childSnapshot.val());
 					return;
 				}
+				res.status(204).send({});
 			});
-			res.status(204).send({});
+		}).catch(function(err) {
+			res.status(500).send(err);
 		});
 	},
 
@@ -125,6 +127,8 @@ module.exports = {
 				}
 			});
 			res.status(200).send(ret);
+		}).catch(function(err) {
+			res.status(500).send(err);
 		});
 	},
 
