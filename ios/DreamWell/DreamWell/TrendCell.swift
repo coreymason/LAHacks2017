@@ -33,6 +33,7 @@ class TrendCell: UITableViewCell {
 		chartView.legend.enabled = false
 		chartView.leftAxis.enabled = true
 		chartView.rightAxis.enabled = false
+		chartView.xAxis.avoidFirstLastClippingEnabled = true
 		chartView.xAxis.enabled = true
 		chartView.gridBackgroundColor = UIColor.white
 		chartView.borderColor = veryLightGray
@@ -50,10 +51,32 @@ class TrendCell: UITableViewCell {
 		
     }
 	
+	func getXVals() -> [Double] {
+		var res = [Double]()
+		switch self.type! {
+		case .airPressure:
+			let start = 28.0
+			for i in 0..<50 {
+				res.append(start + 4.0 * Double(i) / 50.0)
+			}
+		case .humidity:
+			let start = 50.0
+			for i in 0..<50 {
+				res.append(start + 50.0 * Double(i) / 50.0)
+			}
+		case .temperature:
+			let start = 68.0
+			for i in 0..<50 {
+				res.append(start + 16.0 * Double(i) / 50.0)
+			}
+		}
+		return res
+	}
+	
 	func updateChart(yVals: [Double]) {
 		var entries = [ChartDataEntry]()
 		for (index, val) in yVals.enumerated() {
-			let entry = ChartDataEntry(x: Double(index), y: val)
+			let entry = ChartDataEntry(x: getXVals()[index], y: val)
 			entries.append(entry)
 		}
 		
@@ -70,9 +93,9 @@ class TrendCell: UITableViewCell {
 		let data = LineChartData(dataSets: dataSets)
 		chartView.data = data
 		chartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easing: nil)
-		titleLabel.text = "\(isQuality ? "Dream quality" : "Sleep rating") affected by \(type.rawValue.lowercased())"
+		titleLabel.text = "\(isQuality ? "Dream positivity" : "Sleep rating") affected by \(type.rawValue.lowercased())"
 		xAxisLabel.text = type.rawValue
-		addLeftAxisLabel(text: isQuality ? "Dream quality" : "Sleep Rating (1-10)")
+		addLeftAxisLabel(text: isQuality ? "Dream positivity" : "Sleep Rating (1-10)")
 	}
 	
 	

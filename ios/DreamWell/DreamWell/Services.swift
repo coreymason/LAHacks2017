@@ -11,12 +11,14 @@ import Alamofire
 import SwiftyJSON
 
 struct Services {
+	static var delegate : ServicesDelegate?
 	static let userID = "SwFaJKpAMIaKhIz4vS4FCnYvTj33"
 	static let root = "http://projectscale.me"
+	
 	static func postSleepLogs(text: String, stars: Int) {
-		let todoEndpoint: String = "\(root)/dreamLog/\(userID)"
+		let endpoint: String = "\(root)/dreamLog/\(userID)"
 		let newTodo: [String: Any] = ["text" : text, "quality" : stars]
-		Alamofire.request(todoEndpoint, method: .post, parameters: newTodo,
+		Alamofire.request(endpoint, method: .post, parameters: newTodo,
                     encoding: JSONEncoding.default).responseString { response in
 			guard response.result.error == nil else {
 				// got an error in getting the data, need to handle it
@@ -27,6 +29,30 @@ struct Services {
 			print("SUCCESS SENDING SLEEP LOGS")
 		}
 	}
+	
+	static func getDailyStat() {
+		let endpoint: String = "\(root)/dayStats/\(userID)"
+		Alamofire.request(endpoint).responseJSON { response in
+			// check for errors
+			guard response.result.error == nil else {
+				// got an error in getting the data, need to handle it
+				print("error calling GET on /todos/1")
+				print(response.result.error!)
+				return
+			}
+			
+			guard let json = response.result.value as? [String: Any] else {
+				print("didn't get todo object as JSON from API")
+				print("Error: \(response.result.error)")
+				return
+			}
+			delegate?.dailyStatsReceived(json: json)
+		}
+	}
+}
+
+protocol ServicesDelegate {
+	func dailyStatsReceived(json: [String: Any])
 }
 
 
