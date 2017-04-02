@@ -102,8 +102,8 @@ module.exports = {
 					return res.status(200).send(childSnapshot.val());
 				}
 			});
+			res.status(204).send({});
 		});
-		res.status(204).send({});
 	},
 
 	//Returns array of 7 objects from most recent to oldest day 7; empty if no data for that day
