@@ -77,7 +77,7 @@ extension TrendsViewController : UITableViewDelegate, UITableViewDataSource {
 		if segmentedControl.selectedSegmentIndex == 0 {
 			if indexPath.section == 0 {
 				let cell = tableView.dequeueReusableCell(withIdentifier: "KeywordCell") as! KeywordCell
-				cell.firstLabel.text = "It seems like you could improve your sleep quality by following a few suggestions:\n uiuh\n heelllo\n last one"
+				cell.firstLabel.text = "It seems like you could improve your sleep quality by following a few suggestions:\n- Increase the temperature\n- Increase the humidity\n- Decrease the light"
 				cell.firstHeightConstraint.constant = 160
 				cell.layoutIfNeeded()
 				cell.secondLabel.text = ""

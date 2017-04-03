@@ -125,13 +125,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hg-fI-hGC">
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hg-fI-hGC">
                                 <rect key="frame" x="111.5" y="42" width="5" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="C7K-uY-MTb"/>
                                     <constraint firstAttribute="width" constant="5" id="Qsz-5F-pfD"/>
                                 </constraints>
                                 <state key="normal" image="left-arrow"/>
+                                <connections>
+                                    <action selector="previous:" destination="ay0-2D-ZXG" eventType="touchUpInside" id="QPd-5Y-pYh"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YoA-YP-xYI">
                                 <rect key="frame" x="256.5" y="41.5" width="5" height="10"/>
@@ -140,6 +143,9 @@
                                     <constraint firstAttribute="width" constant="5" id="b5w-zj-P6W"/>
                                 </constraints>
                                 <state key="normal" image="right-arrow"/>
+                                <connections>
+                                    <action selector="next:" destination="ay0-2D-ZXG" eventType="touchUpInside" id="AVP-IP-cK3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -165,6 +171,7 @@
                     <tabBarItem key="tabBarItem" title="Statistics" image="stats_grey" selectedImage="stats_green" id="CVB-PL-TU1"/>
                     <connections>
                         <outlet property="chartView" destination="CkS-OK-8n3" id="Qaq-cc-CtT"/>
+                        <outlet property="dateLabel" destination="Xx5-6A-RE4" id="Let-ML-IwL"/>
                         <outlet property="tableView" destination="lKu-LT-aV1" id="CFo-Zh-WYc"/>
                         <outlet property="transcriptTextView" destination="t6f-EE-DId" id="Wrl-KL-rGx"/>
                     </connections>

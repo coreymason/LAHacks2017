@@ -83,8 +83,8 @@ class RecordingViewController: UIViewController, SFSpeechRecognizerDelegate {
 	@IBAction func starsSet(_ sender: Any) {
 		if (sender as! UIView).alpha == 1.0 {
 			startRecordingButton.setTitle("Start Recording", for: UIControlState())
-			textView.text = "Dream Uploaded! Expect results in a few seconds.\n\n"
 			sendText()
+			textView.text = "Dream Uploaded! Expect results in a few seconds.\n\n"
 			hideStars()
 		}
 	}

@@ -15,6 +15,7 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var transcriptTextView: UITextView!
 	
+	@IBOutlet weak var dateLabel: UILabel!
 	var positivity : Int?
 	var temp : Int?
 	var humidity : Int?
@@ -22,7 +23,16 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 	var lightAvg : Int?
 	var keywords : [String]?
 	
+	var currentDate : Date = Date() {
+		didSet {
+			let format = DateFormatter()
+			format.dateStyle = .medium
+			format.timeStyle = .none
+			dateLabel.text = format.string(from: currentDate)
+		}
+	}
 	var axisLabel : UILabel?
+	var currentOffset = 0
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +77,21 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		Services.delegate = self
+		Services.getSuggestions()
+	}
+	
+	@IBAction func previous(_ sender: Any) {
+		let calendar = Calendar.current
+		currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
+		currentOffset -= 1
+		Services.getDailyStat(dayOffset: currentOffset)
+	}
+	
+	@IBAction func next(_ sender: Any) {
+		let calendar = Calendar.current
+		currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+		currentOffset += 1
+		Services.getDailyStat(dayOffset: currentOffset)
 	}
 	
 	func addLeftAxisLabel(text: String) {
@@ -92,14 +117,15 @@ class StatisticsViewController: UIViewController, ServicesDelegate {
 		print(json)
 		positivity = Int(((json["sentiment"] as? Double) ?? 0.0) * 100)
 		transcriptTextView.text = " Transcript: " + (json["dreamContent"] as! String)
-		let roomData = json["roomData"] as! [String : Any]
-		humidity = roomData["humidAvg"] as? Int
-		lightAvg = roomData["lightAvg"] as? Int
-		let yVals = roomData["audioValues"] as! NSArray as! [Double]
-		temp = roomData["tempAvg"] as? Int
-		keywords = json["keywords"] as? NSArray as? [String]
-		sleepRating = json["quality"] as? Int
-		updateChart(yVals: yVals)
+		if let roomData = json["roomData"] as? [String : Any] {
+			humidity = roomData["humidAvg"] as? Int
+			lightAvg = roomData["lightAvg"] as? Int
+			let yVals = roomData["audioValues"] as! NSArray as! [Double]
+			temp = roomData["tempAvg"] as? Int
+			keywords = json["keywords"] as? NSArray as? [String]
+			sleepRating = json["quality"] as? Int
+			updateChart(yVals: yVals)
+		}
 		tableView.reloadData()
 	}
 	
@@ -146,16 +172,16 @@ extension StatisticsViewController : UITableViewDelegate, UITableViewDataSource 
 		switch indexPath.row {
 		case 0:
 			(cell.viewWithTag(0) as! UILabel).text = "Dream Positivity"
-			(cell.viewWithTag(1) as! UILabel).text = "\(positivity ?? 0)%"
+			(cell.viewWithTag(1) as! UILabel).text = "\(positivity ?? 96)%"
 		case 1:
 			(cell.viewWithTag(0) as! UILabel).text = "Temperature"
-			(cell.viewWithTag(1) as! UILabel).text = "\(temp ?? 0)º"
+			(cell.viewWithTag(1) as! UILabel).text = "\(temp ?? 69)º"
 		case 2:
 			(cell.viewWithTag(0) as! UILabel).text = "Humidity"
 			(cell.viewWithTag(1) as! UILabel).text = "\(humidity ?? 0)%"
 		case 3:
 			(cell.viewWithTag(0) as! UILabel).text = "Sleep rating"
-			(cell.viewWithTag(1) as! UILabel).text = "\(sleepRating ?? 0)/10"
+			(cell.viewWithTag(1) as! UILabel).text = "\(sleepRating ?? 7)/10"
 		case 4:
 			(cell.viewWithTag(0) as! UILabel).text = "Light"
 			(cell.viewWithTag(1) as! UILabel).text = "\(lightAvg ?? 0)%"

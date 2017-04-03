@@ -52,8 +52,24 @@ struct Services {
 		}
 	}
 	
-	static func getSuggestion() {
-		
+	static func getSuggestions() {
+		/*let endpoint = "\(root)/suggestions/\(userID)"
+		Alamofire.request(endpoint).responseJSON { response in
+			// check for errors
+			guard response.result.error == nil else {
+				// got an error in getting the data, need to handle it
+				print("error calling GET on suggestions")
+				print(response.result.error!)
+				return
+			}
+			
+			guard let json = response.result.value as? [String: Any] else {
+				print("didn't get todo object as JSON from API")
+				print("Error: \(response.result.error)")
+				return
+			}
+			
+		}*/
 	}
 	
 }
