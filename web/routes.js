@@ -4,19 +4,26 @@ var express = require('express'),
 	PythonShell = require('python-shell'),
 	json2csv = require('json2csv'),
 	fs = require('fs'),
+	path = require('path'),
 	secrets = require("./secrets");
 
 firebase.initializeApp(secrets.fbconfig);
 var database = firebase.database();
 
+/*launchLinodeServerTasks() {
+
+}*/
+
 module.exports = {
-	home: function() {
+	home: function(req, res) {
 		console.log("hey");
+		res.sendFile(path.join(__dirname + '/index.html'));
 	},
 
 	//Checks if there are 7 days of data, if so look for suggestions and report them
 	suggestions: function(req, res) {
-		console.log('sstart')
+		res.status(200).send({});
+		/*console.log('sstart')
 		var numPoints = 0;
 		var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 		userDB.child('dreamLogs').once('value').then(function(snapshot) {
@@ -52,23 +59,46 @@ module.exports = {
 						}
 					  console.log('file saved');
 
+						/*
+						var pyshell = new PythonShell('linear_regression_engine.py');
+						var suggs = [];
+
+						pyshell.on('message', function (message) {
+							suggs.push(message);
+						  // received a message sent from the Python script (a simple "print" statement)
+						  //console.log(message);
+						});
+
+						// end the input stream and allow the process to exit
+						pyshell.end(function (err) {
+						  if (err) throw err;
+						  console.log('finished');
+							res.status(200).send(suggs);
+						});
+
+
+
 						//Launch python script
-						var pyoptions = {
+						/*var pyoptions = {
 							mode: 'json',
 						}
+						console.log('just before run');
 						PythonShell.run('linear_regression_engine.py', pyoptions, function(err, results) {
 			  			if(err) {
 								res.status(500).send(err);
 								throw err; //do we need a return here somewhere?
 							}
 						  // results is an array consisting of messages collected during execution
-							return status(200).send(results);
+							console.log('res next l');
+							console.log(results);
+							status(200).send(results);
+							return;
 						}); //pyshell
 					}); //writefile
 				}); //parent
 			}
 		}); //firstchild
-		res.status(204).send({});
+		res.status(204).send({});*/
 	},
 
 	//Returns the current day's stats or else empty
@@ -97,11 +127,14 @@ module.exports = {
 				var diffDays = Math.floor((utc2 - utc1) / 1000 / 60 / 60 / 24);
 				//add to array if within last 7, including today
 				if(diffDays == req.params.ago) {
-					return res.status(200).send(childSnapshot.val());
+					res.status(200).send(childSnapshot.val());
+					return;
 				}
+				res.status(204).send({});
 			});
+		}).catch(function(err) {
+			res.status(500).send(err);
 		});
-		res.status(204).send({});
 	},
 
 	//Returns array of 7 objects from most recent to oldest day 7; empty if no data for that day
@@ -122,6 +155,8 @@ module.exports = {
 				}
 			});
 			res.status(200).send(ret);
+		}).catch(function(err) {
+			res.status(500).send(err);
 		});
 	},
 
@@ -220,10 +255,24 @@ module.exports = {
 						dreamContent: req.body.text,
 						keywords: keywords,
 						sentiment: sentiment,
-						sleepQuality: ((req.body.quality == undefined) ? null : req.body.quality)
+						quality: ((req.body.quality == undefined) ? null : req.body.quality),
+						roomData: {
+							audioValues: [0, 2, 5, 7, 1, 2, 1, 3, 8],
+							tempAvg: 77,
+							lightAvg: 13,
+							humidAvg: 55
+						}
 					}
 					var userDB = database.ref('users').orderByChild('uid').equalTo(req.params.uid).ref;
 					userDB.child('dreamLogs').push(newDreamLog).then(function() {
+
+						//get and add world mood
+						//launchLinodeServerTasks();
+						/*PythonShell.run('twitterMood.py', function (err) {
+						  if (err) throw err;
+						  console.log('finished');
+						});*/
+
 						res.sendStatus(200);
 					}).catch(function(err) {
 						res.status(500).send(err);

@@ -1,0 +1,9 @@
+****************
+*    README    *
+****************
+
+Note: this file reads the [arduino] serial port and can be running inside raspberry pi
+(tested running raspian) while arduino with its sensors "Serial.print"s.  Since the
+server is running json, the program keeps track of the major telemetry points and saves
+them to an external file, which a python script (or other language's script) can later
+open and post request to the server.
